@@ -560,16 +560,10 @@ class CsvSeeder extends Seeder
                 ? $row[$csv_index]
                 : null;
 
-            /*if ($column_name == 'ahcccs_id') {
-                $column_value = encrypt($column_value);
-            }*/
-            $this->log($column_name);
-
             if ( ! empty($encrypt)) {
-                $this->log('in loop');
+
                 if (in_array($column_name, $encrypt)) {
                     $column_value = encrypt($column_value);
-                    $this->log($column_name);
                 }
             }
             $columns->put($column_name, $column_value);
