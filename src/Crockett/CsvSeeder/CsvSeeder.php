@@ -230,8 +230,7 @@ class CsvSeeder extends Seeder
         $mapping = null,
         $insert_callback = null,
         $insert_encrypt = null
-    )
-    {
+    ) {
         $this->filename        = $filename ?: $this->filename;
         $this->table           = $table ?: $this->table;
         $this->model           = $model ?: $this->model;
@@ -561,9 +560,16 @@ class CsvSeeder extends Seeder
                 ? $row[$csv_index]
                 : null;
 
+            /*if ($column_name == 'ahcccs_id') {
+                $column_value = encrypt($column_value);
+            }*/
+            $this->log($column_name);
+
             if ( ! empty($encrypt)) {
+                $this->log('in loop');
                 if (in_array($column_name, $encrypt)) {
                     $column_value = encrypt($column_value);
+                    $this->log($column_name);
                 }
             }
             $columns->put($column_name, $column_value);
@@ -583,10 +589,8 @@ class CsvSeeder extends Seeder
      *
      * @return array
      */
-    protected
-    function cleanMapping(
-        array $mapping
-    ) {
+    protected function cleanMapping(array $mapping)
+    {
         $columns    = $mapping;
         $columns[0] = $this->stripUtf8Bom($columns[0]);
 
