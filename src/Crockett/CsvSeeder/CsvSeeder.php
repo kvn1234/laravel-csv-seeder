@@ -634,12 +634,11 @@ class CsvSeeder extends Seeder
     {
         if (is_array($this->hashable) && ! empty($this->hashable)) {
             foreach ($this->hashable as $hashable) {
-                if ($columns->contains($hashable)) {
+                if ($columns->has($hashable)) {
                     $columns->put($hashable, bcrypt($columns[$hashable]));
                 }
             }
         }
-
         return $columns;
     }
 
